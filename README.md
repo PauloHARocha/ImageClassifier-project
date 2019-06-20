@@ -7,7 +7,7 @@
 ## About
 
 
-Project code for Udacity's Data Scientist Nanodegree program.
-In this project, was develop code for an image classifier built with PyTorch, then convert it into a command line application.
+Project for the program Nanodegree Data Scientist of Udacity.
+ In this project, the code was developed for an image classifier built with PyTorch, then the code was converted into a command line application.
 
 
