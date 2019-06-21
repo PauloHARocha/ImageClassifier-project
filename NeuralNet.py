@@ -1,7 +1,7 @@
 import torch, os
 import numpy as np
-from torch import nn, optim
 import torch.nn.functional as F
+from torch import nn, optim
 from torchvision import datasets, transforms, models
 from collections import OrderedDict
 
@@ -45,18 +45,7 @@ class NeuralNet():
     def init_model(self, hidden_units, learning_rate):
         self.hidden_units = hidden_units
         
-        if self.arch.lower() == 'vgg19':
-            model = models.vgg19(pretrained=True)
-        elif self.arch.lower() == 'vgg13':
-            model = models.vgg13(pretrained=True)
-        elif self.arch.lower() == 'densenet':
-            model = models.densenet121(pretrained=True)
-        elif self.arch.lower() == 'resnet34':
-            model = models.resnet34(pretrained=True)
-        elif self.arch.lower() == 'resnet50':
-            model = models.resnet50(pretrained=True)
-        else:
-            model = models.vgg19(pretrained=True)
+        model = self.get_model(self.arch.lower())
             
         for param in model.parameters():# Freeze parameters so we don't backprop through them
             param.requires_grad = False
@@ -135,18 +124,7 @@ class NeuralNet():
     def load_model(self, checkpoint='.'):
         checkpoint = torch.load(f'{checkpoint}/classifier.pth')
         
-        if checkpoint['arch'] == 'vgg19':
-            model = models.vgg19(pretrained=True)
-        elif checkpoint['arch'] == 'vgg13':
-            model = models.vgg13(pretrained=True)
-        elif checkpoint['arch'] == 'densenet':
-            model = models.densenet121(pretrained=True)
-        elif checkpoint['arch'] == 'resnet34':
-            model = models.resnet34(pretrained=True)
-        elif checkpoint['arch'] == 'resnet50':
-            model = models.resnet50(pretrained=True)
-        else:
-            model = models.vgg19(pretrained=True)
+        model = self.get_model(checkpoint['arch'])
         
         model.class_to_idx = checkpoint['class_to_idx']
     
@@ -160,3 +138,17 @@ class NeuralNet():
         model.load_state_dict(checkpoint['state_dict'])
         
         return model  
+
+    def get_model(self, name):
+        if name == 'vgg19':
+            return models.vgg19(pretrained=True)
+        elif name == 'vgg13':
+            return models.vgg13(pretrained=True)
+        elif name == 'densenet':
+            return models.densenet121(pretrained=True)
+        elif name == 'resnet34':
+            return models.resnet34(pretrained=True)
+        elif name == 'resnet50':
+            return models.resnet50(pretrained=True)
+        else:
+            return models.vgg19(pretrained=True)

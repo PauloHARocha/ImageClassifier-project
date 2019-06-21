@@ -1,7 +1,8 @@
 import torch
-from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
+from PIL import Image
+
 
 def process_image(image_path):
     ''' 
@@ -57,8 +58,6 @@ def imshow(image, ax=None, title=None):
 
 
 def predict(image_path, model, top_num=3, gpu=False, cat_to_name=None):
-    
-    
     
     # Process image
     img = process_image(image_path)

@@ -1,7 +1,7 @@
 import argparse, json, os
-from NeuralNet import NeuralNet
 import matplotlib.pyplot as plt
 import seaborn as sns
+from NeuralNet import NeuralNet
 from image_utils import process_image, imshow, predict
 
 
